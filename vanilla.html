@@ -9,14 +9,43 @@
 <script type="text/babel">
     const root = document.getElementById("root");
     function App() {
-        const [counter, setCounter] = React.useState(0);  // 매개변수(초기값, 그 값을 바꾸는 함수)
-        const onClick = () => {
-            setCounter((current) => current + 1);  // 매개변수로 받은 값으로 업데이트하고 리렌더링을 일으킴(컴포넌트가 리렌더링됨)
+        const [amount, setAmount] = React.useState(0);
+        const [inverted, setInverted] = React.useState(false);
+        const onChange = (event) => {
+            setAmount(event.target.value);
+        }
+        const reset = () => setAmount(0);
+        const onFlip = () => {
+            reset();
+            setInverted((currnet) => !currnet);
         }
         return (
             <div>
-                <h3>Total clicks: {counter}</h3>
-                <button onClick={onClick}>Click me</button>
+                <h1>Super Converter</h1>
+                <div>
+                <label htmlFor="minutes">Minutes</label>
+                <input 
+                    value={inverted? amount * 60 : amount} 
+                    id="minutes" 
+                    placeholder="Minutes" 
+                    type="number" 
+                    onChange={onChange}
+                    disabled = {inverted === true}
+                />
+                </div>  
+                <div>
+                <label htmlFor="hours">Hours</label>
+                <input 
+                    value={inverted? amount : Math.round(amount / 60)} 
+                    id="hours" 
+                    placeholder="Hours" 
+                    type="number"
+                    onChange={onChange}
+                    disabled = {inverted === false}
+                />
+                </div>
+                <button onClick={reset}>Reset</button>
+                <button onClick={onFlip}>{inverted ? "Turn back" : "Invert"}</button>
             </div>
         );
     }
