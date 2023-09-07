@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17.0.2/umd/react.development.js"> // interactive한 UI를 만들 수 있게 함</script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"> // React element를 HTML에 두는 역할을 함</script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"> // JSX로 작성한 코드를 브라우저가 이해할 수 있는 형태로 바꾸어줌</script>
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"> // 어떤 타입의 prop을 받고 있는지 체크해줌</script>
+<script type="text/babel">
+    function Btn({text, fontSize}){  // 중괄호를 통해 오브젝트의 property를 바로 사용(props.text라고 작성했을 경우 오브젝트가 매개변수로 넘어옴)
+        return <button 
+        style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+            fontSize: fontSize,
+        }}>
+        {text}
+        </button>;
+    }
+    Btn.propTypes = {  // property의 타입을 검사해줌
+        text: PropTypes.string,
+        fontSize: PropTypes.number,
+    };
+    function App() {
+        return (
+            <div>
+                <Btn text="Save Changes" fontSize={18}/>
+                <Btn fontSize={14} text={"Continue"}/>
+            </div>
+        );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+</script>
+</html>
